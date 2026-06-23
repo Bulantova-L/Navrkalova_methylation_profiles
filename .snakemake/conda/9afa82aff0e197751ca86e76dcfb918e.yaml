@@ -1,0 +1,8 @@
+name: modkit
+channels:
+    - bioconda 
+dependencies:
+    - ont-modkit
+    - parallel
+    - bedtools
+    - samtools

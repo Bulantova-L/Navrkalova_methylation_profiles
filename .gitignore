@@ -1,0 +1,40 @@
+# Keep repo metadata & workflow files
+!.gitignore
+!README.md
+!Snakefile
+
+# Keep scripts and workflow sources
+!*.sh
+!*.R
+!*.py
+!*.smk
+!*.mk
+
+# Keep conda/envs directory
+!envs/
+!envs/**
+
+# Ignore results, raw data and intermediate directories
+/results/
+data/
+tmp/
+.cache/
+
+# Ignore common large/binary data files
+*.bed
+*.bed.gz
+*.gz
+*.vcf
+*.vcf.gz
+*.tsv
+*.tsv.gz
+*.chrom.sizes
+*.txt
+*.bam
+*.h5
+*.rds
+*.RData
+
+# Logs and other transient files
+*.log
+*.tmp

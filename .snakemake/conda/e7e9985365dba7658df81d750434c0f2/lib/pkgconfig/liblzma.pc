@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: 0BSD
+# Author: Lasse Collin
+
+prefix=/mnt/data/ceitec_cfg2/710000-CEITEC/713000-cmm/713016-bioit/base/workspace/lucka/Navrkalova_cfDNA/methylation_profiles/.snakemake/conda/e7e9985365dba7658df81d750434c0f2
+exec_prefix=/mnt/data/ceitec_cfg2/710000-CEITEC/713000-cmm/713016-bioit/base/workspace/lucka/Navrkalova_cfDNA/methylation_profiles/.snakemake/conda/e7e9985365dba7658df81d750434c0f2
+libdir=/mnt/data/ceitec_cfg2/710000-CEITEC/713000-cmm/713016-bioit/base/workspace/lucka/Navrkalova_cfDNA/methylation_profiles/.snakemake/conda/e7e9985365dba7658df81d750434c0f2/lib
+includedir=/mnt/data/ceitec_cfg2/710000-CEITEC/713000-cmm/713016-bioit/base/workspace/lucka/Navrkalova_cfDNA/methylation_profiles/.snakemake/conda/e7e9985365dba7658df81d750434c0f2/include
+
+Name: liblzma
+Description: General purpose data compression library
+License: 0BSD
+URL: https://tukaani.org/xz/
+Version: 5.8.3
+Cflags: -I${includedir}
+Cflags.private: -DLZMA_API_STATIC
+Libs: -L${libdir} -llzma
+Libs.private: -pthread -lpthread 

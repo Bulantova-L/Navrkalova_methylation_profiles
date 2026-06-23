@@ -1,0 +1,10 @@
+name: modkit
+channels:
+    - bioconda 
+    - conda-forge
+dependencies:
+    - ont-modkit
+    - parallel
+    - bedtools
+    - samtools
+    - openssh

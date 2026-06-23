@@ -1,0 +1,14 @@
+prefix=/mnt/data/ceitec_cfg2/710000-CEITEC/713000-cmm/713016-bioit/base/workspace/lucka/Navrkalova_cfDNA/methylation_profiles/.snakemake/conda/9afa82aff0e197751ca86e76dcfb918e
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+KDB5_DB_LIB=
+
+Name: kdb
+Description: Kerberos database access libraries
+Version: 1.22.2
+Requires.private: mit-krb5-gssapi mit-krb5 gssrpc
+Cflags: -I${includedir}
+Libs: -L${libdir} -lkdb5
+Libs.private: ${KDB5_DB_LIB}
