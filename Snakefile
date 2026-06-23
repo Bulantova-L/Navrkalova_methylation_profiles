@@ -80,10 +80,23 @@ rule modkit_pileup:
             --log-filepath {output.log}
         """
 
+rule sort_modkit_bed:
+    input:
+        "results/{sample}/{sample}_modkit.bed"
+    output:
+        "results/{sample}/{sample}_modkit_sorted.bed"
+    threads: 4
+    shell:
+        """
+        # Lexikografické třídění stávajícího modkit outputu
+        LC_ALL=C sort -k1,1 -k2,2n {input} > {output}
+        """
+
 rule bedtools_map:
     input:
         manifest = MANIFEST,
-        modkit_bed = "results/{sample}/{sample}_modkit.bed"
+        # Nyní bere jako vstup ten nově setříděný soubor:
+        modkit_bed = "results/{sample}/{sample}_modkit_sorted.bed"
     output:
         mapped = "results/{sample}/{sample}_epic_mapped.bed"
     shell:
