@@ -1,0 +1,10 @@
+name: nanoplot
+channels:
+    - bioconda
+    - conda-forge
+
+dependencies:
+    - python=3.10
+    - pip
+    - pip:
+        - NanoPlot

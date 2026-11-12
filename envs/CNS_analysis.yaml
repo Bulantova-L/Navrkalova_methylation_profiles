@@ -1,0 +1,8 @@
+name: CNS_analysis
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - bedtools=2.30.0
+  - mysql-client=8.0.33

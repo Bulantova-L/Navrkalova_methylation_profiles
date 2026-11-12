@@ -1,0 +1,8 @@
+name: R_plots
+channels:
+  - conda-forge
+dependencies:
+  - r-base>=4.3
+  - r-data.table
+  - r-ggplot2
+  - r-scales

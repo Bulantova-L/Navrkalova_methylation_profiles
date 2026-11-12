@@ -1,0 +1,76 @@
+# environment.yml
+#
+# Conda prostředí pro pipeline modkit -> PAT/UXM + PCNSL markery na hg38.
+#
+# Vytvoření prostředí:
+#   conda env create -f environment.yml
+#   (nebo rychleji: mamba env create -f environment.yml)
+#
+# Aktivace:
+#   conda activate pcnsl-methylation
+#
+# Po aktivaci ještě spusťte scripts/00_install_uxm.sh (viz níže, důvod je
+# vysvětlený v bodě 2).
+#
+# --- Co je OVĚŘENÉ (vyzkoušeno, včetně opravy po chybě z prvního pokusu) ---
+#
+#   1) `ont-modkit` je oficiální bioconda balíček
+#      (https://anaconda.org/bioconda/ont-modkit), po instalaci vytvoří
+#      v PATH binárku `modkit`. Ověřte: `modkit --version`. Pokud verze
+#      z bioconda zaostává za GitHub releases nanoporetech/modkit a chybí
+#      vám nějaká funkce (např. `modkit extract calls`), zvažte instalaci
+#      novější verze přímo z GitHub release binárky.
+#
+#   2) `wgbstools` MÁ funkční `pyproject.toml`, takže `pip install
+#      git+https://github.com/nloyfer/wgbs_tools.git` (níže) funguje -
+#      ověřeno.
+#
+#      `uxm` (UXM_deconv) ale `pyproject.toml`/`setup.py` NEMÁ - repozitář
+#      je jen sbírka skriptů (spustitelný soubor `uxm` je symlink na
+#      `src/uxm.py`). `pip install git+...` na něj proto SELŽE (to je
+#      přesně to, co se stalo při prvním pokusu - a navíc to shodilo celý
+#      `pip` krok, takže se nenainstaloval ani wgbstools). UXM_deconv proto
+#      NENÍ v tomto souboru jako pip závislost - musí se nainstalovat
+#      ručně přes `scripts/00_install_uxm.sh` (git clone + přidání do
+#      PATH), přesně jak doporučuje oficiální README repozitáře.
+#
+#      Bonus zjištění: referenční metylační atlas (Loyfer 2023) NENÍ
+#      potřeba nikde externě hledat/stahovat - je přímo součástí
+#      UXM_deconv repozitáře ve složce `supplemental/` (soubory
+#      `Atlas.U25.l4.hg38.tsv` = 25 širokých buněčných typů,
+#      `Atlas.U250.l4.hg38.tsv` = ~250 jemnějších subtypů). `scripts/
+#      00_install_uxm.sh` a `05_run_uxm.sh` na to teď rovnou odkazují.
+#
+name: pcnsl-methylation
+channels:
+  - conda-forge
+  - bioconda
+  - nanoporetech   # fallback kanál pro modkit, kdyby bioconda verze zaostávala
+dependencies:
+  - python=3.10
+  - pip
+  - git              # potřeba pro pip install git+... a pro 00_install_uxm.sh
+
+  # --- Python vědecký stack (pandas/numpy/scipy = i závislosti UXM_deconv) ---
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib       # jen pro `uxm plot` / `uxm heatmap`, `uxm deconv` to nevyžaduje
+
+  # --- Nanopore modifikované báze ---
+  - bioconda::ont-modkit     # binárka: modkit
+
+  # --- samtools / bedtools / htslib (bgzip, tabix) ---
+  - bioconda::samtools
+  - bioconda::bedtools
+  - bioconda::htslib         # bgzip, tabix
+
+  # --- typické runtime závislosti wgbs_tools (pysam apod.) ---
+  - bioconda::pysam
+  - tqdm
+
+  - pip:
+      # wgbstools MÁ funkční packaging - ověřeno, funguje.
+      - "git+https://github.com/nloyfer/wgbs_tools.git"
+      # UXM_deconv je záměrně VYNECHANÉ tady - viz vysvětlení výše a
+      # scripts/00_install_uxm.sh.

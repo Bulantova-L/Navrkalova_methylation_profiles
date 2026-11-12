@@ -35,6 +35,8 @@ tmp/
 *.rds
 *.RData
 .snakemake/
+.claude/
+.posit/
 
 # Logs and other transient files
 *.log

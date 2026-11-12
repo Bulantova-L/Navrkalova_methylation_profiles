@@ -1,0 +1,14 @@
+name: QC
+channels:
+    - bioconda 
+    - conda-forge
+
+dependencies:
+    - python=3.10
+    - setuptools==69.5.1
+    - pip
+    - plotly==6.1.1
+    - numpy<2
+    - pandas<2
+    - pip:
+        - pycoQC

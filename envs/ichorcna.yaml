@@ -1,0 +1,10 @@
+name: ichorcna
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-ichorcna        # R balicek ichorCNA (+ HMMcopy, GenomicRanges)
+  - r-optparse        # pouzivaji ho scripts/runIchorCNA.R a createPanelOfNormals.R
+  - hmmcopy           # readCounter (BAM -> WIG s pocty readu v binech)
+  - samtools
+  - git
